@@ -1,0 +1,261 @@
+/* public/css/styles.css */
+
+
+/* --- Universal Settings & Font Import --- */
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* NEW: A subtle gradient background */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+
+/* --- Main Layout Containers --- */
+
+.container {
+    width: 100%;
+    max-width: 480px;
+}
+
+.box {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    /* Frosted glass effect */
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    overflow: hidden;
+    /* Ensures children conform to border-radius */
+}
+
+
+/* --- Header & Title --- */
+
+.heading {
+    background-color: transparent;
+    padding: 25px 20px;
+    text-align: center;
+}
+
+h1 {
+    color: white;
+    font-size: 1.75rem;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+/* --- List Item Styling --- */
+
+.item {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.item:not(.editing-form):hover {
+    background-color: rgba(240, 240, 240, 0.8);
+}
+
+.item:last-of-type {
+    border-bottom: none;
+}
+
+
+/* --- Custom Checkbox Styling --- */
+
+.checkbox-form {
+    display: contents;
+    /* Allows form to not interfere with flexbox layout */
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    height: 22px;
+    width: 22px;
+    background-color: #f0f0f0;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 20px;
+    flex-shrink: 0;
+    /* Prevent checkbox from shrinking */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+}
+
+input[type="checkbox"]::after {
+    content: '✓';
+    font-size: 16px;
+    font-weight: 900;
+    color: white;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.2s ease-in-out;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #667eea;
+    border-color: #667eea;
+}
+
+input[type="checkbox"]:checked::after {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+/* --- Item Text Styling --- */
+
+.item-text {
+    font-size: 1.1rem;
+    color: #333;
+    flex-grow: 1;
+    cursor: default;
+    /* Change from pointer to default */
+    transition: color 0.3s, text-decoration-color 0.3s;
+    word-break: break-word;
+    /* Prevent long text from overflowing */
+}
+
+.completed {
+    color: #aaa;
+    text-decoration: line-through;
+    text-decoration-color: #bbb;
+    text-decoration-thickness: 2px;
+}
+
+
+/* --- Add/Edit Item Form Styling --- */
+
+.add-item-form,
+.editing-form {
+    background-color: #f7f7f7;
+    gap: 15px;
+    /* Space between input and button */
+}
+
+.editing-form {
+    background-color: #e6e9ff;
+    /* Highlight the item being edited */
+}
+
+input[type="text"] {
+    border: none;
+    background: transparent;
+    font-size: 1.1rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    width: 100%;
+    color: #333;
+    flex-grow: 1;
+    /* Allow it to take up space */
+}
+
+input[type="text"]:focus {
+    outline: none;
+}
+
+input[type="text"]::placeholder {
+    color: #999;
+}
+
+
+/* --- Button Styling (Add, Edit, Delete, Save) --- */
+
+.add-button,
+.edit-btn,
+.delete-btn,
+.save-btn {
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    /* Prevent buttons from shrinking */
+}
+
+.add-button {
+    min-height: 45px;
+    width: 45px;
+    padding: 0;
+    /* Override padding for round button */
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    font-size: 2rem;
+    line-height: 45px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.add-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.save-btn {
+    background-color: #28a745;
+    /* Green */
+    color: white;
+}
+
+.save-btn:hover {
+    background-color: #218838;
+}
+
+.edit-btn {
+    background-color: #ffc107;
+    /* Yellow */
+    color: #333;
+}
+
+.edit-btn:hover {
+    background-color: #e0a800;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    /* Red */
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+
+/* NEW: Container for Edit/Delete buttons */
+
+.actions-container {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+    padding-left: 15px;
+}
+
+.actions-container form {
+    display: contents;
+}

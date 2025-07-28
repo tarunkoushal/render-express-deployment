@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="/public/css/style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="heading">
+            <h1>To-Do List</h1>
+        </div>
+
+        <div class="box">
+            <% for(let i = 0; i < todoItems.length; i++) { %>
+
+                <!-- START: Conditional Rendering for Edit/Normal View -->
+                <% if (todoItems[i].editing) { %>
+                    <!-- EDITING VIEW: Show a form to save the item -->
+                    <form class="item editing-form" action="/save" method="POST">
+                        <input type="hidden" name="itemIndex" value="<%= i %>">
+                        <input type="text" name="updatedText" value="<%= todoItems[i].text %>" autocomplete="off" autofocus required>
+                        <button class="save-btn" type="submit">Save</button>
+                    </form>
+                    <% } else { %>
+                        <!-- NORMAL VIEW: Show checkbox, text, and action buttons -->
+                        <div class="item">
+                            <form action="/update" method="POST" class="checkbox-form">
+                                <input type="checkbox" name="checkbox" value="<%= i %>" onchange="this.form.submit()" <% if (todoItems[i].completed) { %>checked
+                                <% } %>>
+                            </form>
+
+                            <p class="item-text <%= todoItems[i].completed ? 'completed' : '' %>">
+                                <%= todoItems[i].text %>
+                            </p>
+
+                            <!-- Container for Edit/Delete buttons -->
+                            <div class="actions-container">
+                                <!-- Edit Button Form -->
+                                <form action="/edit" method="POST">
+                                    <input type="hidden" name="itemIndex" value="<%= i %>">
+                                    <button class="edit-btn" type="submit">Edit</button>
+                                </form>
+                                <!-- Delete Button Form -->
+                                <form action="/delete" method="POST">
+                                    <input type="hidden" name="itemIndex" value="<%= i %>">
+                                    <button class="delete-btn" type="submit">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                        <% } %>
+                            <!-- END: Conditional Rendering -->
+
+                            <% } %>
+
+                                <!-- Form to add a new item remains the same -->
+                                <form class="item add-item-form" action="/add" method="POST">
+                                    <input type="text" name="newItem" placeholder="New Item" autocomplete="off" required>
+                                    <button type="submit" class="add-button">+</button>
+                                </form>
+        </div>
+    </div>
+
+</body>
+
+</html>
